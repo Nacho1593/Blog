@@ -1,0 +1,13 @@
+body {
+  padding-top: 56px;
+  font-size: 18px;
+}
+
+.container {
+  max-width: 900px;
+}
+
+.navbar-brand {
+  letter-spacing: 5px;
+  font-weight: bold;
+}

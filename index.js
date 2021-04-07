@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const routes = require("./routes");
 const mysql = require("mysql2");
 const port = 3305;
@@ -17,4 +18,9 @@ connection.connect(function (err) {
 });
 
 app.set("view engine", "ejs");
+
 app.listen(port, (req, res) => console.log("Server has starter ..."));
+
+app.get("/", (req, res) => {
+  res.render("./home.ejs");
+});
