@@ -3,11 +3,11 @@ body {
   font-size: 18px;
 }
 
-.container {
-  max-width: 900px;
+.navbar a {
+  letter-spacing: 4px;
+  font-weight: bold;
 }
 
-.navbar-brand {
-  letter-spacing: 5px;
-  font-weight: bold;
+.navbar .container {
+  max-width: 900px;
 }
