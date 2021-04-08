@@ -17,6 +17,10 @@ connection.connect(function (err) {
   console.log("¡Nos conectamos al Blog!");
 });
 
+connection.query("SELECT * FROM articulos", function (err, articulos) {
+  console.log(articulos);
+});
+
 app.set("view engine", "ejs");
 app.use(express.static("public/")); //permite usar mi css
 
