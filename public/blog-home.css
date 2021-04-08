@@ -1,21 +1,12 @@
-/*!
- * Start Bootstrap - Blog Home (https://startbootstrap.com/template/blog-home)
- * Copyright 2013-2020 Start Bootstrap
- * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-blog-home/blob/master/LICENSE)
- */
 body {
   padding-top: 56px;
 }
-
-/*.miNavBar {
-  max-width: fit-content;
-}*/
 
 .portada {
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.3);
-  background-image: url(../img/Many_Book_Library_468620.jpg);
+  background-image: url(../public/img/Many_Book_Library_468620.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
