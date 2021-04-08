@@ -19,10 +19,7 @@ connection.connect(function (err) {
 
 app.set("view engine", "ejs");
 app.use(express.static("public/")); //permite usar mi css
-app.use("/css", express.static("public/css"));
+
+app.use(routes);
 
 app.listen(port, (req, res) => console.log("Server has starter ..."));
-
-app.get("/", (req, res) => {
-  res.render("./home.ejs");
-});
