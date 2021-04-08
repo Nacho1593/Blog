@@ -21,6 +21,8 @@ connection.query("SELECT * FROM articulos", function (err, articulos) {
   console.log(articulos);
 });
 
+module.exports = connection;
+
 app.set("view engine", "ejs");
 app.use(express.static("public/")); //permite usar mi css
 
