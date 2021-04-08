@@ -21,38 +21,20 @@
     <div class="portada">Hola</div>
 
     <!-- Page Content -->
-
-    <section class="container bg-light pt-5 mt-5 mb-5">
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-          <div class="card">
-            <img src="img/HP1.jfif" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                This is a longer card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <% articulos.forEach( articulo => { %>
+    <% articles.forEach(article => { %>
 
     <section class="container bg-light pt-5 mt-5 mb-5">
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
           <div class="card">
             <img
-              src="/articulo/<%= articulo.id %>"
+              src="/articulo/<%= article.id %>"
               class="card-img-top"
               alt="..."
             />
             <div class="card-body">
-              <h5 class="card-title"><%= articulo.title %></h5>
-              <p class="card-text"><%= articulo.content.replace() %></p>
+              <h5 class="card-title"><%= article.title %></h5>
+              <p class="card-text"><%= article.content.replace() %></p>
             </div>
           </div>
         </div>

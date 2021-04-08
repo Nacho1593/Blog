@@ -1,14 +1,18 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
-const connection = require("./index");
+const mysql = require("mysql2");
 
-router.get("/", (req, res) => {
-  res.render("./home.ejs");
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database: "Blog",
 });
 
-router.get("/", (req, res) => {
-  res.render("home", { articulos });
+connection.connect(function (err) {
+  if (err) throw err;
+  console.log("¡Nos conectamos al Blog!");
 });
 
 router.get("/api/articles", (req, res) => {
