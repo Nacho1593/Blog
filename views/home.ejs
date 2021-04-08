@@ -39,28 +39,26 @@
         </div>
       </div>
     </section>
-    > <% articulos.forEach( articulo => { %>
+    <% articulos.forEach( articulo => { %>
 
     <section class="container bg-light pt-5 mt-5 mb-5">
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
           <div class="card">
             <img
-              src="/articulo/<%= articulos.id %>"
+              src="/articulo/<%= articulo.id %>"
               class="card-img-top"
               alt="..."
             />
             <div class="card-body">
-              <h5 class="card-title"><%= articulos.title %></h5>
-              <p class="card-text">
-                <%= articulos.content.replace(/<[^>]*>/g, "\n") %>
-              </p>
+              <h5 class="card-title"><%= articulo.title %></h5>
+              <p class="card-text"><%= articulo.content.replace() %></p>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <% }); %> >
+    <% }); %>
 
     <!-- /.container -->
 

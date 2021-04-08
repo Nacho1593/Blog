@@ -7,6 +7,10 @@ router.get("/", (req, res) => {
   res.render("./home.ejs");
 });
 
+router.get("/", (req, res) => {
+  res.render("home", { articulos });
+});
+
 router.get("/api/articles", (req, res) => {
   connection.query(`SELECT * FROM articles`, (err, articles) => {
     if (err) throw err;
