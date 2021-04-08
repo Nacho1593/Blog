@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
+const formidable = require("formidable");
 const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
@@ -15,17 +16,24 @@ connection.connect(function (err) {
   console.log("¡Nos conectamos al Blog!");
 });
 
-router.get("/api/articles", (req, res) => {
-  connection.query(`SELECT * FROM articles`, (err, articles) => {
-    if (err) throw err;
-    res.json(articles);
-  });
-});
-
 router.get("/", (req, res) => {
   connection.query(`SELECT * FROM articles`, (err, articles) => {
     if (err) throw err;
     res.render("home.ejs", { articles });
+  });
+});
+
+// const form = formidable({ multiples: true, uploadDir: __dirname });
+
+// form.parse(req, (err, fields, files) => {
+//   console.log('fields:', fields);
+//   console.log('files:', files);
+// });
+
+router.get("/api/articles", (req, res) => {
+  connection.query(`SELECT * FROM articles`, (err, articles) => {
+    if (err) throw err;
+    res.json(articles);
   });
 });
 
