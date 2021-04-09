@@ -2,19 +2,7 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 const formidable = require("formidable");
-const mysql = require("mysql2");
-
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "Blog",
-});
-
-connection.connect(function (err) {
-  if (err) throw err;
-  console.log("¡Nos conectamos al Blog!");
-});
+const articleController = require("./controllers/articleControllers");
 
 router.get("/", (req, res) => {
   connection.query(`SELECT * FROM articles`, (err, articles) => {
@@ -30,12 +18,12 @@ router.get("/", (req, res) => {
 //   console.log('files:', files);
 // });
 
-router.get("/api/articles", (req, res) => {
+/* router.get("/api/articles", (req, res) => {
   connection.query(`SELECT * FROM articles`, (err, articles) => {
     if (err) throw err;
     res.json(articles);
   });
-});
+}); */
 
 router.get("/show/:id", (req, res) => {
   const id = req.params.id;
