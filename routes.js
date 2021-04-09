@@ -45,8 +45,8 @@ router.get("/articulos", (req, res) => {
 });
 
 //RUTA PARA QUE FUNCIONE EL EDITAR
-const crud = require("./controllers/crud");
-router.post("/save", crud.save);
+const create = require("./controllers/createController");
+router.post("/save", create.save);
 
 router.get("/show/:id", (req, res) => {
   const id = req.params.id;
