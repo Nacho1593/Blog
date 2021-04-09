@@ -25,20 +25,6 @@ router.get("/", (req, res) => {
   });
 });
 
-// const form = formidable({ multiples: true, uploadDir: __dirname });
-
-// form.parse(req, (err, fields, files) => {
-//   console.log('fields:', fields);
-//   console.log('files:', files);
-// });
-
-/* router.get("/api/articles", (req, res) => {
-  connection.query(`SELECT * FROM articles`, (err, articles) => {
-    if (err) throw err;
-    res.json(articles);
-  });
-}); */
-
 router.get("/show/:id", (req, res) => {
   const id = req.params.id;
   connection.query(

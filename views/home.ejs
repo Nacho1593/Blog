@@ -21,23 +21,26 @@
     <div class="portada">Hola</div>
 
     <!-- Page Content -->
-    <% articles.forEach(article => { %>
 
     <section class="container bg-light pt-5 mt-5 mb-5">
       <div class="row">
-        <div class="col-12 col-md-4">
+        <% articles.forEach(article => { %>
+        <div class="col-12 col-md-4 mb-5">
           <div class="card">
-            <img src="<%= article.image %>" class="card-img-top" alt="imagen" />
+            <img
+              src="/img/<%= article.image %>"
+              class="card-img-top"
+              alt="imagen"
+            />
             <div class="card-body">
               <h5 class="card-title"><%= article.title %></h5>
               <p class="card-text"><%= article.content.replace() %></p>
             </div>
           </div>
         </div>
+        <% }); %>
       </div>
     </section>
-
-    <% }); %>
 
     <!-- /.container -->
 
