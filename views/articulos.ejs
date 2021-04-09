@@ -12,10 +12,20 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../public/navbar-styles.css" />
+    <link rel="stylesheet" href="../public/cover-page.css" />
   </head>
   <body>
-    <%- include("partials/navbar")%> <%- include("partial/articulos") %>
-    <p>Este es el Articulos</p>
+    <!--NavBar-->
+    <%- include("partials/navbar")%>
+    <!-- Page Content -->
+    <%- include("partials/cover-page")%>
+
+    <section class="container bg-light pt-5 mt-5 mb-5">
+      <p>Este es el Articulos</p>
+    </section>
+
+    <!-- Footer -->
+    <%- include("partials/footer")%>
     <script src="../index.js"></script>
   </body>
 </html>

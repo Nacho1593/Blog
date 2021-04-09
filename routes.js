@@ -24,11 +24,22 @@ router.get("/", (req, res) => {
   });
 });
 
+//RUTA PARA HACER FUNCIONAR EN ADMINS
 router.get("/admin", (req, res) => {
   connection.query(`SELECT * FROM articles`, (err, articles) => {
     if (err) throw err;
     res.render("admin.ejs", { articles });
   });
+});
+
+//RUTA PARA CREAR REGISTROS
+router.get("/edit", (req, res) => {
+  res.render("edit");
+});
+
+//RUTA PARA ARTICULOS
+router.get("/articulos", (req, res) => {
+  res.render("articulos");
 });
 
 router.get("/show/:id", (req, res) => {
