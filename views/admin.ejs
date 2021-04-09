@@ -12,7 +12,6 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../public/navbar-styles.css" />
-    <link rel="stylesheet" href="../public/Footer.css" />
   </head>
   <body>
     <!--NavBar-->
@@ -38,7 +37,10 @@
             <td><%= article.content %></td>
             <td><%= article.creation_date %></td>
             <td><%= article.author_id %></td>
-            <td><button>Edit</button> <button>Delete</button></td>
+            <td>
+              <a href="/Edit" class="btn btn-outline-primary">Editar</a>
+              <a href="/delete" class="btn btn-outline-danger">Delete</a>
+            </td>
           </tr>
         </tbody>
         <% }); %>
