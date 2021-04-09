@@ -11,7 +11,7 @@
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../public/navbar-styles.css" />
+    <link rel="stylesheet" href="/navbar-styles.css" />
   </head>
   <body>
     <!--NavBar-->
@@ -24,23 +24,33 @@
           <form action="/save" method="POST">
             <div class="mb-3">
               <label for="user" class="form-label">Title</label>
-              <input type="text" class="form-control" id="user" name="user" />
+              <input type="text" class="form-control" id="title" name="title" />
             </div>
             <div class="mb-3">
               <label for="user" class="form-label">Content</label>
-              <input type="text" class="form-control" id="user" name="Rol" />
+              <input
+                type="text"
+                class="form-control"
+                id="content"
+                name="content"
+              />
             </div>
             <div class="mb-3">
               <label for="user" class="form-label">Image</label>
-              <input type="text" class="form-control" id="user" name="Rol" />
+              <input type="text" class="form-control" id="image" name="image" />
             </div>
             <div class="mb-3">
               <label for="user" class="form-label">Date</label>
-              <input type="text" class="form-control" id="user" name="Rol" />
+              <input type="text" class="form-control" id="date" name="date" />
             </div>
             <div class="mb-3">
               <label for="user" class="form-label">Author</label>
-              <input type="text" class="form-control" id="user" name="Rol" />
+              <input
+                type="text"
+                class="form-control"
+                id="author"
+                name="author"
+              />
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
             <a href="/" class="btn btn-secondary">Cacelar</a>

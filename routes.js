@@ -5,6 +5,7 @@ const formidable = require("formidable");
 const articleController = require("./controllers/articleControllers");
 const mysql = require("mysql2");
 
+//CONECTARSE A LA BASE DE DATOS
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -17,6 +18,7 @@ connection.connect(function (err) {
   console.log("¡Nos conectamos al Blog!");
 });
 
+//RUTA PARA HACER FUNCIONAR EN HOME
 router.get("/", (req, res) => {
   connection.query(`SELECT * FROM articles`, (err, articles) => {
     if (err) throw err;
@@ -24,7 +26,7 @@ router.get("/", (req, res) => {
   });
 });
 
-//RUTA PARA HACER FUNCIONAR EN ADMINS
+//RUTA PARA HACER FUNCIONAR EN ADMIN
 router.get("/admin", (req, res) => {
   connection.query(`SELECT * FROM articles`, (err, articles) => {
     if (err) throw err;
@@ -41,6 +43,10 @@ router.get("/edit", (req, res) => {
 router.get("/articulos", (req, res) => {
   res.render("articulos");
 });
+
+//RUTA PARA QUE FUNCIONE CRUD
+const crud = require("./controllers/crud");
+router.post("/save", crud.save);
 
 router.get("/show/:id", (req, res) => {
   const id = req.params.id;
