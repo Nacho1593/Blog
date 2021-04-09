@@ -1,11 +1,6 @@
-const Connection = require("mysql2");
+const Connection = require("./Connection");
 
 class Article {
-  title;
-  content;
-  image;
-  user;
-
   static findAll() {
     Connection.query(`SELECT * FROM articles`);
   }
