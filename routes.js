@@ -44,7 +44,7 @@ router.get("/articulos", (req, res) => {
   res.render("articulos");
 });
 
-//RUTA PARA QUE FUNCIONE CRUD
+//RUTA PARA QUE FUNCIONE EL EDITAR
 const crud = require("./controllers/crud");
 router.post("/save", crud.save);
 
