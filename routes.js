@@ -24,6 +24,13 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/admin", (req, res) => {
+  connection.query(`SELECT * FROM articles`, (err, articles) => {
+    if (err) throw err;
+    res.render("admin.ejs", { articles });
+  });
+});
+
 router.get("/show/:id", (req, res) => {
   const id = req.params.id;
   connection.query(
