@@ -1,13 +1,3 @@
 body {
   padding-top: 56px;
 }
-
-.portada {
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.3);
-  background-image: url(/img/Many_Book_Library_468620.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
