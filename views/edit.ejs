@@ -24,7 +24,13 @@
           <form action="/save" method="POST">
             <div class="mb-3">
               <label for="user" class="form-label">Title</label>
-              <input type="text" class="form-control" id="title" name="title" />
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                placeholder="Pon un titulo"
+              />
             </div>
             <div class="mb-3">
               <label for="content" class="form-label">Content</label>
@@ -33,15 +39,38 @@
                 class="form-control"
                 id="content"
                 name="content"
+                placeholder="Subir contenido"
               />
             </div>
             <div class="mb-3">
               <label for="image" class="form-label">Image</label>
-              <input type="text" class="form-control" id="image" name="image" />
+
+              <div class="input-group mb-3">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="button-addon1"
+                >
+                  Cargar
+                </button>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="image"
+                  name="image"
+                  placeholder="Subir una imagen"
+                />
+              </div>
             </div>
             <div class="mb-3">
               <label for="date" class="form-label">Date</label>
-              <input type="text" class="form-control" id="date" name="date" />
+              <input
+                type="text"
+                class="form-control"
+                id="date"
+                name="date"
+                placeholder="Pon la fecha"
+              />
             </div>
             <div class="mb-3">
               <label for="author" class="form-label">Author</label>
@@ -50,6 +79,7 @@
                 class="form-control"
                 id="author"
                 name="author"
+                placeholder="Pon un Author"
               />
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>

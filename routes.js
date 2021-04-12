@@ -45,7 +45,7 @@ router.get("/edit", (req, res) => {
 
 //RUTA PARA ARTICULOS
 router.get("/articulos", (req, res) => {
-  res.render("articulos");
+  res.render("articulos.ejs");
 });
 
 //RUTA PARA QUE FUNCIONE EL EDITAR
