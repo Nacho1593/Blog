@@ -1,34 +1,40 @@
-const Connection = require("./Connection");
+const customQuery = require("../database/customQuery");
 
 class Article {
-  static findAll() {
-    Connection.query(`SELECT * FROM articles`);
-  }
+  id;
+  title;
+  content;
+  author_id;
+  published_at = undefined;
+  created_at = Date.now();
+  updated_at = Date.now();
+  rules = {
+    title_min: 2,
+    title_max: 100,
+    title_required: true,
+    content_min: 2,
+    content_max: 3000,
+  };
 
-  static find(id) {
-    Connection.query(`SELECT * FROM articles WHERE id = ${id} LIMIT 1`);
-  }
-
-  create() {
-    connection.query(`INSERT INTO article(title, content, author) VALUES(
-      ${connection.escape(article.title)},
-      ${connection.escape(article.content)},
-      ${connection.escape(article.author)},
-    )`);
-  }
-
-  static update() {
-    connection.query(
-      `UPDATE articles SET title = ${connection.escape(article.title)},
-    image = ${connection.escape(article.image)},
-    content = ${connection.escape(article.content)}
-    WHERE id = "${id}"`
+  static async findAll() {
+    const articles = await customQuery(
+      "SELECT * FROM articles ORDER BY creation_date DESC"
     );
+    return articles;
   }
 
-  destroy(id) {
-    connection.query(`DELETE FROM articles WHERE id = "${id}"`);
+  static async findById(id) {
+    const article = await customQuery("SELECT * FROM articles WHERE id = ?", [
+      id,
+    ]);
+    return article;
   }
+
+  async delete(id) {
+    await customQuery("DELETE * FROM articles WHERE id = ?", [id]);
+  }
+
+  async store() {}
 }
 
 module.exports = Article;

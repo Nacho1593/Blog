@@ -1,11 +1,16 @@
-const express = require("express");
-const router = express.Router();
-router.use(express.json());
 const Article = require("../models/Article");
 
-function showApi(req, res) {
-  const article = Article.findAll();
-  res.render("home", { article });
+async function showAll(req, res) {
+  const articles = await Article.findAll();
+  res.render("home.ejs", { articles });
 }
 
-module.exports = { showApi };
+async function show(req, res) {
+  const article = await Article.findById(req.params.id);
+  res.render("articulos.ejs", { article });
+}
+
+function destroy(req, res) {
+  res.redirect("/");
+}
+module.exports = { showAll, show, destroy };
