@@ -6,7 +6,8 @@ const articleControllers = require("./controllers/articleControllers");
 router.get("/", articleControllers.showAll);
 router.get("/articulos", articleControllers.show);
 router.get("/delete", articleControllers.destroy);
-/* const mysql = require("mysql2");
+
+const mysql = require("mysql2");
 
 //CONECTARSE A LA BASE DE DATOS
 const connection = mysql.createConnection({
@@ -20,9 +21,9 @@ connection.connect(function (err) {
   if (err) throw err;
   console.log("¡Nos conectamos al Blog!");
 });
- */
+
 //RUTA PARA HACER FUNCIONAR EN HOME
-/* router.get("/", (req, res) => {
+router.get("/", (req, res) => {
   connection.query(`SELECT * FROM articles`, (err, articles) => {
     if (err) throw err;
     res.render("home.ejs", { articles });
@@ -109,6 +110,6 @@ router.post("/admin/create", (req, res) => {
       res.redirect("/");
     }
   );
-}); */
+});
 
 module.exports = router;
