@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 const articleControllers = require("./controllers/articleControllers");
+router.use(express.urlencoded({ extended: true }));
 
 router.get("/", articleControllers.showAll);
 router.get("/articulos", articleControllers.show);
@@ -41,6 +42,11 @@ router.get("/admin", (req, res) => {
 //RUTA PARA CREAR REGISTROS
 router.get("/edit", (req, res) => {
   res.render("edit");
+});
+
+//RUTA PARA CREAR REGISTROS
+router.get("/create", (req, res) => {
+  res.render("create");
 });
 
 //RUTA PARA ARTICULOS

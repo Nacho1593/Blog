@@ -13,5 +13,4 @@ connection.connect(function (err) {
   console.log("¡Nos conectamos al Blog!");
 });
 
-module.exports = connection;
- */
+module.exports = connection; */
