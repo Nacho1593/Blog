@@ -1,5 +1,5 @@
 //CRUD
-const connection = require("../database/server");
+const connection = require("../database/createTables");
 
 exports.save = (req, res) => {
   const title = req.body.title;
