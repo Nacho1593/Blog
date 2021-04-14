@@ -99,6 +99,7 @@ router.put("/admin/edit/:id", (req, res) => {
 router.get("/admin/delete/:id", (req, res) => {
   connection.query(`DELETE FROM articles WHERE id = "${id}"`, (req, res) => {
     if (err) throw err;
+    console.log("hola");
     res.redirect("/");
   });
 });
