@@ -13,6 +13,11 @@ const Article = ArticleModel(sequelize, Sequelize);
 const Author = AuthorModel(sequelize, Sequelize);
 const Comment = CommentModel(sequelize, Sequelize);
 
+Article.findAllArticles = Article.findAll({
+  limit: 12,
+  order: [["createdAt", "DESC"]],
+});
+
 Article.belongsTo(Author);
 Author.hasMany(Article);
 

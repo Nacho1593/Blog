@@ -1,20 +1,13 @@
-const Connection = require("mysql2");
 const { Article, Comment, Author } = require("../database/Sequelize");
 
 const showHome = async (req, res) => {
-  Article.findAll({
-    limit: 12,
-    order: [["createdAt", "DESC"]],
-  }).then((articles) => {
+  Article.findAllArticles.then((articles) => {
     res.render("home.ejs", { articles });
   });
 };
 
 const showAdmin = async (req, res) => {
-  Article.findAll({
-    limit: 12,
-    order: [["createdAt", "DESC"]],
-  }).then((articles) => {
+  Article.findAllArticles.then((articles) => {
     res.render("admin.ejs", { articles });
   });
 };

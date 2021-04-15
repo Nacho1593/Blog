@@ -83,18 +83,4 @@ router.get("/create", (req, res) => {
   res.render("create");
 }); */
 
-//CONECTARSE A LA BASE DE DATOS
-
-//RUTA PARA HACER FUNCIONAR EN HOME
-
-//RUTA PARA HACER FUNCIONAR EN ADMIN
-
-//RUTA PARA CREAR REGISTROS
-
-//RUTA PARA CREAR REGISTROS
-
-//RUTA PARA ARTICULOS
-
-//RUTA PARA QUE FUNCIONE EL EDITAR
-
 module.exports = router;
