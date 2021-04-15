@@ -1,87 +1,24 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
-const articleControllers = require("./controllers/articleControllers");
+
+const { showHome, showAdmin } = require("./controllers/articleControllers");
 router.use(express.urlencoded({ extended: true }));
 
-router.get("/", articleControllers.showAll);
-router.get("/articulos", articleControllers.show);
-router.get("/delete", articleControllers.destroy);
+//           /GET ALL
 
-const mysql = require("mysql2");
+router.get("/", showHome);
 
-//CONECTARSE A LA BASE DE DATOS
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "Blog",
-});
+//           /GET ONE
+/* router.get("/articulos", (req, res) => {
+  res.render("articulo.ejs");
+}); */
 
-connection.connect(function (err) {
-  if (err) throw err;
-  console.log("¡Nos conectamos al Blog!");
-});
+//           /ADMIN
 
-//RUTA PARA HACER FUNCIONAR EN HOME
-router.get("/", (req, res) => {
-  connection.query(`SELECT * FROM articles`, (err, articles) => {
-    if (err) throw err;
-    res.render("home.ejs", { articles });
-  });
-});
+router.get("/admin", showAdmin);
 
-//RUTA PARA HACER FUNCIONAR EN ADMIN
-router.get("/admin", (req, res) => {
-  connection.query(`SELECT * FROM articles`, (err, articles) => {
-    if (err) throw err;
-    res.render("admin.ejs", { articles });
-  });
-});
-
-//RUTA PARA CREAR REGISTROS
-router.get("/edit", (req, res) => {
-  res.render("edit");
-});
-
-//RUTA PARA CREAR REGISTROS
-router.get("/create", (req, res) => {
-  res.render("create");
-});
-
-//RUTA PARA ARTICULOS
-router.get("/articulos", (req, res) => {
-  res.render("articulos.ejs");
-});
-
-//RUTA PARA QUE FUNCIONE EL EDITAR
-const create = require("./controllers/createController");
-router.post("/save", create.save);
-
-router.get("/show/:id", (req, res) => {
-  const id = req.params.id;
-  connection.query(
-    `SELECT * FROM articles WHERE id = "${id}" LIMIT 1`,
-    (err, article) => {
-      if (err) throw err;
-      res.render("article.ejs", { article });
-    }
-  );
-});
-
-router.get("/admin/edit/:id", (req, res) => {
-  const id = req.params.id;
-  const article = req.body;
-  connection.query(
-    `SELECT * FROM articles WHERE id = "${id}" LIMIT 1`,
-    (err, article) => {
-      if (err) throw err;
-      res.render("edit.ejs", { article });
-    }
-  );
-});
-
-router.put("/admin/edit/:id", (req, res) => {
+/* router.put("/admin/edit/:id", (req, res) => {
   const article = req.body;
   const id = req.params.id;
   connection.query(
@@ -94,15 +31,39 @@ router.put("/admin/edit/:id", (req, res) => {
       res.redirect("/");
     }
   );
-});
+}); */
 
+//           /DELETE
+
+/* router.get("/delete", articleControllers.destroy);
 router.get("/admin/delete/:id", (req, res) => {
   connection.query(`DELETE FROM articles WHERE id = "${id}"`, (req, res) => {
     if (err) throw err;
     console.log("hola");
     res.redirect("/");
   });
+}); */
+
+//           /UPDATE
+
+/* router.get("/edit", (req, res) => {
+  res.render("edit");
 });
+router.get("/admin/edit/:id", (req, res) => {
+  const id = req.params.id;
+  const article = req.body;
+  connection.query(
+    `SELECT * FROM articles WHERE id = "${id}" LIMIT 1`,
+    (err, article) => {
+      if (err) throw err;
+      res.render("edit.ejs", { article });
+    }
+  );
+}); */
+
+//                 /POST
+/* const create = require("./controllers/createController");
+router.post("/save", create.save);
 
 router.post("/admin/create", (req, res) => {
   const article = req.body;
@@ -118,5 +79,22 @@ router.post("/admin/create", (req, res) => {
     }
   );
 });
+router.get("/create", (req, res) => {
+  res.render("create");
+}); */
+
+//CONECTARSE A LA BASE DE DATOS
+
+//RUTA PARA HACER FUNCIONAR EN HOME
+
+//RUTA PARA HACER FUNCIONAR EN ADMIN
+
+//RUTA PARA CREAR REGISTROS
+
+//RUTA PARA CREAR REGISTROS
+
+//RUTA PARA ARTICULOS
+
+//RUTA PARA QUE FUNCIONE EL EDITAR
 
 module.exports = router;
