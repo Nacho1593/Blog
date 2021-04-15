@@ -3,7 +3,7 @@ const ArticleModel = require("../models/Article");
 const AuthorModel = require("../models/Authors");
 const CommentModel = require("../models/Comment");
 
-const sequelize = new Sequelize("blogSQ", "root", "root", {
+const sequelize = new Sequelize("blogsq", "root", "root", {
   host: "localhost",
   dialect: "mysql",
   logging: false,

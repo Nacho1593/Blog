@@ -2,8 +2,19 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 
-const { showHome, showAdmin } = require("./controllers/articleControllers");
-router.use(express.urlencoded({ extended: true }));
+const { showHome, showAdmin } = require("./controllers/articleController");
+const { showLogin } = require("./controllers/authController");
+const passport = require("passport");
+
+router.get("/login", showLogin);
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/admin",
+    failureRedirect: "/login",
+    failureFlash: true,
+  })
+);
 
 //           /GET ALL
 
