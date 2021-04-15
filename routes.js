@@ -4,6 +4,7 @@ router.use(express.json());
 
 const { showHome, showAdmin } = require("./controllers/articleController");
 const { showLogin } = require("./controllers/authController");
+const loginControl = require("./middlewares/loginControl");
 const passport = require("passport");
 
 router.get("/login", showLogin);
@@ -16,6 +17,16 @@ router.post(
   })
 );
 
+router.get("/registro", showHome);
+/* router.post(
+  "/registro",
+  passport.authenticate("local", {
+    successRedirect: "/admin",
+    failureRedirect: "/login",
+    failureFlash: true,
+  })
+); */
+
 //           /GET ALL
 
 router.get("/", showHome);
@@ -27,8 +38,7 @@ router.get("/", showHome);
 
 //           /ADMIN
 
-router.get("/admin", showAdmin);
-
+router.get("/admin", loginControl, showAdmin);
 /* router.put("/admin/edit/:id", (req, res) => {
   const article = req.body;
   const id = req.params.id;

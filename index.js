@@ -34,11 +34,8 @@ app.use(passport.session());
 //Step 6
 passport.use(
   new LocalStrategy(async function (username, password, done) {
-    console.log(username);
-    console.log(password);
     try {
       const user = await Author.findOne({ where: { email: username } });
-      console.log(user);
       if (!user) {
         return done(null, false, {
           message: "Usuario incorrecto",
@@ -70,15 +67,6 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-//Step 9
-/* app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/admin",
-    failureRedirect: "/login",
-  })
-); */
-
 //Step 10
 /* app.post("/register", async (req, res) => {
   const [user, created] = await User.findOrCreate({
@@ -92,13 +80,7 @@ passport.deserializeUser(function (id, done) {
 }); */
 
 //Step 11
-/* app.get("/admin", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.render("admin");
-  } else {
-    res.redirect("/login");
-  }
-}); */
+
 app.use(routes);
 
 app.listen(port, () => console.log(`Servidor en http://localhost:${port}/`));
