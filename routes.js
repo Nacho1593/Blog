@@ -1,87 +1,45 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
-const articleControllers = require("./controllers/articleControllers");
-router.use(express.urlencoded({ extended: true }));
 
-router.get("/", articleControllers.showAll);
-router.get("/articulos", articleControllers.show);
-router.get("/delete", articleControllers.destroy);
+const { showHome, showAdmin } = require("./controllers/articleController");
+const { showLogin } = require("./controllers/authController");
+const loginControl = require("./middlewares/loginControl");
+const passport = require("passport");
 
-const mysql = require("mysql2");
+router.get("/login", showLogin);
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/admin",
+    failureRedirect: "/login",
+    failureFlash: true,
+  })
+);
 
-//CONECTARSE A LA BASE DE DATOS
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "Blog",
-});
+router.get("/registro", showHome);
+/* router.post(
+  "/registro",
+  passport.authenticate("local", {
+    successRedirect: "/admin",
+    failureRedirect: "/login",
+    failureFlash: true,
+  })
+); */
 
-connection.connect(function (err) {
-  if (err) throw err;
-  console.log("¡Nos conectamos al Blog!");
-});
+//           /GET ALL
 
-//RUTA PARA HACER FUNCIONAR EN HOME
-router.get("/", (req, res) => {
-  connection.query(`SELECT * FROM articles`, (err, articles) => {
-    if (err) throw err;
-    res.render("home.ejs", { articles });
-  });
-});
+router.get("/", showHome);
 
-//RUTA PARA HACER FUNCIONAR EN ADMIN
-router.get("/admin", (req, res) => {
-  connection.query(`SELECT * FROM articles`, (err, articles) => {
-    if (err) throw err;
-    res.render("admin.ejs", { articles });
-  });
-});
+//           /GET ONE
+/* router.get("/articulos", (req, res) => {
+  res.render("articulo.ejs");
+}); */
 
-//RUTA PARA CREAR REGISTROS
-router.get("/edit", (req, res) => {
-  res.render("edit");
-});
+//           /ADMIN
 
-//RUTA PARA CREAR REGISTROS
-router.get("/create", (req, res) => {
-  res.render("create");
-});
-
-//RUTA PARA ARTICULOS
-router.get("/articulos", (req, res) => {
-  res.render("articulos.ejs");
-});
-
-//RUTA PARA QUE FUNCIONE EL EDITAR
-const create = require("./controllers/createController");
-router.post("/save", create.save);
-
-router.get("/show/:id", (req, res) => {
-  const id = req.params.id;
-  connection.query(
-    `SELECT * FROM articles WHERE id = "${id}" LIMIT 1`,
-    (err, article) => {
-      if (err) throw err;
-      res.render("article.ejs", { article });
-    }
-  );
-});
-
-router.get("/admin/edit/:id", (req, res) => {
-  const id = req.params.id;
-  const article = req.body;
-  connection.query(
-    `SELECT * FROM articles WHERE id = "${id}" LIMIT 1`,
-    (err, article) => {
-      if (err) throw err;
-      res.render("edit.ejs", { article });
-    }
-  );
-});
-
-router.put("/admin/edit/:id", (req, res) => {
+router.get("/admin", loginControl, showAdmin);
+/* router.put("/admin/edit/:id", (req, res) => {
   const article = req.body;
   const id = req.params.id;
   connection.query(
@@ -94,15 +52,39 @@ router.put("/admin/edit/:id", (req, res) => {
       res.redirect("/");
     }
   );
-});
+}); */
 
+//           /DELETE
+
+/* router.get("/delete", articleControllers.destroy);
 router.get("/admin/delete/:id", (req, res) => {
   connection.query(`DELETE FROM articles WHERE id = "${id}"`, (req, res) => {
     if (err) throw err;
     console.log("hola");
     res.redirect("/");
   });
+}); */
+
+//           /UPDATE
+
+/* router.get("/edit", (req, res) => {
+  res.render("edit");
 });
+router.get("/admin/edit/:id", (req, res) => {
+  const id = req.params.id;
+  const article = req.body;
+  connection.query(
+    `SELECT * FROM articles WHERE id = "${id}" LIMIT 1`,
+    (err, article) => {
+      if (err) throw err;
+      res.render("edit.ejs", { article });
+    }
+  );
+}); */
+
+//                 /POST
+/* const create = require("./controllers/createController");
+router.post("/save", create.save);
 
 router.post("/admin/create", (req, res) => {
   const article = req.body;
@@ -118,5 +100,8 @@ router.post("/admin/create", (req, res) => {
     }
   );
 });
+router.get("/create", (req, res) => {
+  res.render("create");
+}); */
 
 module.exports = router;
