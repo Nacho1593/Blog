@@ -5,96 +5,118 @@ router.use(express.json());
 const { showHome, showAdmin } = require("./controllers/articleControllers");
 router.use(express.urlencoded({ extended: true }));
 
-//           /GET ALL
-
 router.get("/", showHome);
 
-//           /GET ONE
-/* router.get("/articulos", (req, res) => {
-  res.render("articulo.ejs");
-}); */
+const bcrypt = require("bcryptjs");
+router.get("/admin", (req, res) => {
+  bcrypt.genSalt(10, function (err, salt) {
+    bcrypt.hash("Hola//", salt, function (err, hash) {
+      // Store hash in your password DB.
 
-//           /ADMIN
-
-router.get("/admin", showAdmin);
-
-/* router.put("/admin/edit/:id", (req, res) => {
-  const article = req.body;
-  const id = req.params.id;
-  connection.query(
-    `UPDATE articles SET title = ${connection.escape(article.title)},
-  image = ${connection.escape(article.image)},
-  content = ${connection.escape(article.content)}
-  WHERE id = "${id}"`,
-    (err, result) => {
-      if (err) throw err;
-      res.redirect("/");
-    }
-  );
-}); */
-
-//           /DELETE
-
-/* router.get("/delete", articleControllers.destroy);
-router.get("/admin/delete/:id", (req, res) => {
-  connection.query(`DELETE FROM articles WHERE id = "${id}"`, (req, res) => {
-    if (err) throw err;
-    console.log("hola");
-    res.redirect("/");
+      bcrypt.compare("Hola//", hash, function (err, result) {
+        console.log(result);
+        if (err) {
+          console.log("Error de algo"); // QUE ES?
+        }
+        if (result) {
+          showAdmin(req, res);
+        } else {
+          console.log("mala contraseña");
+        }
+      });
+    });
   });
-}); */
-
-//           /UPDATE
-
-/* router.get("/edit", (req, res) => {
-  res.render("edit");
 });
-router.get("/admin/edit/:id", (req, res) => {
-  const id = req.params.id;
-  const article = req.body;
-  connection.query(
-    `SELECT * FROM articles WHERE id = "${id}" LIMIT 1`,
-    (err, article) => {
-      if (err) throw err;
-      res.render("edit.ejs", { article });
-    }
-  );
-}); */
 
-//                 /POST
-/* const create = require("./controllers/createController");
-router.post("/save", create.save);
+// passport
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
-router.post("/admin/create", (req, res) => {
-  const article = req.body;
-  connection.query(
-    `INSERT INTO article(title, content, author) VALUES(
-    ${connection.escape(article.title)},
-    ${connection.escape(article.content)},
-    ${connection.escape(article.author)}
-  )`,
-    (req, res) => {
-      if (err) throw err;
-      res.redirect("/");
+router.use(
+  session({
+    secret: "AlgúnTextoSuperSecreto",
+    resave: false, // Docs: "The default value is true, but using the default has been deprecated".
+    saveUninitialized: false, // Docs: "The default value is true, but using the default has been deprecated".
+  })
+);
+router.use(passport.initialize());
+router.use(passport.session());
+
+passport.use(
+  new LocalStrategy(
+    {
+      passReqToCallback: true,
+    },
+    async function (req, username, password, done) {
+      try {
+        const user = await Author.findOne({ where: { email: username } });
+        if (!user) {
+          return done(null, false, {
+            message: "Usuario  incorrectos",
+          });
+        }
+
+        if (user.password !== password) {
+          return donde(null, false, {
+            message: "Contraseña incorrecta",
+          });
+        }
+        // if (!bcrypt.compareSync(password, user.password)) {
+        //   return done(null, false, {
+        //     message: "contraseña incorrectos",
+        //   });
+        // }
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
     }
-  );
+  )
+);
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
 });
-router.get("/create", (req, res) => {
-  res.render("create");
-}); */
+passport.deserializeUser(function (id, done) {
+  User.findByPk(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch((error) => {
+      done(error, user);
+    });
+});
 
-//CONECTARSE A LA BASE DE DATOS
+router.get("/registro", (req, res) => res.end("Hola"));
+router.post("/registro", (req, res) => res.end("Hola"));
 
-//RUTA PARA HACER FUNCIONAR EN HOME
+router.get("/login", (req, res, next) => {
+  passport.authenticate("local", function (err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect("/login");
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect("/users/" + user.username);
+    });
+  })(req, res, next);
+});
 
-//RUTA PARA HACER FUNCIONAR EN ADMIN
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+    failureFlash: true,
+  })
+);
 
-//RUTA PARA CREAR REGISTROS
-
-//RUTA PARA CREAR REGISTROS
-
-//RUTA PARA ARTICULOS
-
-//RUTA PARA QUE FUNCIONE EL EDITAR
+router.get("/logout", (req, res) => res.end("Hola"));
 
 module.exports = router;

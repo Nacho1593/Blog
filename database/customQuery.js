@@ -5,7 +5,7 @@ async function customQuery(sqlString, fields) {
     host: "localhost",
     user: "root",
     password: "root",
-    database: "Blog",
+    database: "blog",
   });
   const [data] = await connection.execute(sqlString);
   connection.end();

@@ -6,10 +6,9 @@ const showHome = async (req, res) => {
     limit: 12,
     order: [["createdAt", "DESC"]],
   }).then((articles) => {
-    res.render("home.ejs", { articles });
+    res.render("home", { articles });
   });
 };
-
 const showAdmin = async (req, res) => {
   Article.findAll({
     limit: 12,
