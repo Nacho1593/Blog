@@ -25,18 +25,20 @@
       <div class="row">
         <% articles.forEach(article => { %>
         <div class="col-12 col-md-4 mb-5">
-          <div class="card">
-            <img
-              src="/img/<%= article.image %>"
-              class="card-img-top"
-              alt="imagen"
-            />
-            <div class="card-body">
-              <h5 class="card-title"><%= article.title %></h5>
-              <p class="card-text"><%= article.content.replace() %></p>
-              <p class="card-text"><%= article.author_id %></p>
+          <a href="<%="article/"+article.id%>">
+            <div class="card">
+              <img
+                src="/img/<%= article.image %>"
+                class="card-img-top"
+                alt="imagen"
+              />
+              <div class="card-body">
+                <h5 class="card-title"><%= article.title %></h5>
+                <p class="card-text"><%= article.content.replace() %></p>
+                <p class="card-text"><%= article.author_id %></p>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
         <% }); %>
       </div>

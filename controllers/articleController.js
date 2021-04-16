@@ -12,10 +12,10 @@ const showAdmin = async (req, res) => {
   });
 };
 
-///         /CONNECT A FIND ID SYSTEM
-/* User.findByPk(123).then((user) => {
-  console.log(user);
-}); */
+const showArticle = async (req, res) =>
+  Article.findByPk(req.params.id).then((article) => {
+    res.render("article.ejs", { article });
+  });
 
 /* async function show(req, res) {
   const article = await Article.findById(req.params.id);
@@ -52,4 +52,4 @@ const showAdmin = async (req, res) => {
   console.log("¡Usuarios actualizados!");
 }); */
 
-module.exports = { showHome, showAdmin };
+module.exports = { showHome, showAdmin, showArticle };

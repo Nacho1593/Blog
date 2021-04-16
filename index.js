@@ -2,6 +2,8 @@ const express = require("express");
 const flash = require("express-flash");
 const app = express();
 const routes = require("./routes");
+const bcrypt = require("bcrypt");
+const compare = require("./middlewares/bcrypt");
 
 const port = 3000;
 
@@ -10,7 +12,6 @@ app.use(express.static("public/"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//Step 3
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -18,7 +19,6 @@ const { Author } = require("./database/Sequelize");
 
 app.use(flash());
 
-//Step 4
 app.use(
   session({
     secret: "supersecret",
@@ -27,11 +27,9 @@ app.use(
   })
 );
 
-//Step 5
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Step 6
 passport.use(
   new LocalStrategy(async function (username, password, done) {
     try {
@@ -53,7 +51,6 @@ passport.use(
   })
 );
 
-//Step 7
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
@@ -67,20 +64,7 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-//Step 10
-/* app.post("/register", async (req, res) => {
-  const [user, created] = await User.findOrCreate({
-    // Ver opciones en Sequelize.
-  });
-  if (created) {
-    req.login(user, () => res.redirect("/admin"));
-  } else {
-    res.redirect("back");
-  }
-}); */
-
-//Step 11
-
+//NOTE, ROUTES MUST BE IN THE END JUST BEFORE THE PORT-LISTEN IN ORDER TO MAKE PASSPORT WORK PROPERLLY
 app.use(routes);
 
 app.listen(port, () => console.log(`Servidor en http://localhost:${port}/`));

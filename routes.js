@@ -2,11 +2,16 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 
-const { showHome, showAdmin } = require("./controllers/articleController");
+const {
+  showHome,
+  showAdmin,
+  showArticle,
+} = require("./controllers/articleController");
 const { showLogin } = require("./controllers/authController");
 const loginControl = require("./middlewares/loginControl");
 const passport = require("passport");
 
+//LOGIN
 router.get("/login", showLogin);
 router.post(
   "/login",
@@ -17,6 +22,7 @@ router.post(
   })
 );
 
+//REGISTER
 router.get("/registro", showHome);
 /* router.post(
   "/registro",
@@ -27,18 +33,13 @@ router.get("/registro", showHome);
   })
 ); */
 
-//           /GET ALL
-
+//GET ARTICLES
 router.get("/", showHome);
+router.get("/article/:id", showArticle);
 
-//           /GET ONE
-/* router.get("/articulos", (req, res) => {
-  res.render("articulo.ejs");
-}); */
-
-//           /ADMIN
-
+//GET ADMIN FUNCTIONS
 router.get("/admin", loginControl, showAdmin);
+
 /* router.put("/admin/edit/:id", (req, res) => {
   const article = req.body;
   const id = req.params.id;
@@ -54,7 +55,7 @@ router.get("/admin", loginControl, showAdmin);
   );
 }); */
 
-//           /DELETE
+//                   /DELETE FUNCTIONS
 
 /* router.get("/delete", articleControllers.destroy);
 router.get("/admin/delete/:id", (req, res) => {
@@ -65,7 +66,7 @@ router.get("/admin/delete/:id", (req, res) => {
   });
 }); */
 
-//           /UPDATE
+//               /UPDATE FUNCTIONS
 
 /* router.get("/edit", (req, res) => {
   res.render("edit");
@@ -82,7 +83,8 @@ router.get("/admin/edit/:id", (req, res) => {
   );
 }); */
 
-//                 /POST
+//              /POST FUNCTIONS
+
 /* const create = require("./controllers/createController");
 router.post("/save", create.save);
 
