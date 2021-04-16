@@ -22,17 +22,6 @@ router.post(
   })
 );
 
-//REGISTER
-router.get("/registro", showHome);
-/* router.post(
-  "/registro",
-  passport.authenticate("local", {
-    successRedirect: "/admin",
-    failureRedirect: "/login",
-    failureFlash: true,
-  })
-); */
-
 //GET ARTICLES
 router.get("/", showHome);
 router.get("/article/:id", showArticle);
