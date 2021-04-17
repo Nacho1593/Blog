@@ -4,7 +4,6 @@ const flash = require("express-flash");
 const app = express();
 const routes = require("./routes");
 const compare = require("./middlewares/bcrypt");
-require("./passport-setup");
 
 const port = 3000;
 
@@ -15,8 +14,9 @@ app.use(express.json());
 
 const session = require("express-session");
 const passport = require("passport");
-const cookieSession = require("cookie-session");
 const LocalStrategy = require("passport-local").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
+const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const { Author } = require("./database/Sequelize");
 
 app.use(flash());
@@ -53,6 +53,46 @@ passport.use(
   })
 );
 
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: 289628189443236,
+      clientSecret: "4e8e6d743c8c20cfdc75d6acf42a4258",
+      callbackURL: "http://localhost:3000/auth/facebook/callback",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      Author.findOrCreate({ facebookId: profile.id }, function (err, user) {
+        return cb(err, user);
+      });
+    }
+  )
+);
+app.get("/auth/facebook", passport.authenticate("facebook"));
+
+app.get(
+  "/auth/facebook/admin",
+  passport.authenticate("facebook", { failureRedirect: "/login" }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/admin");
+  }
+);
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.CALLBACK_URL,
+      passReqToCallback: true,
+    },
+    function (request, accessToken, refreshToken, profile, done) {
+      console.log(profile);
+      return done(null, profile);
+    }
+  )
+);
+
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
@@ -66,13 +106,7 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-app.use(
-  cookieSession({
-    name: "tuto-session",
-    keys: ["key1", "key2"],
-  })
-);
-
+// Auth middleware that checks if the user is logged in
 const isLoggedIn = (req, res, next) => {
   if (req.user) {
     next();
@@ -81,15 +115,10 @@ const isLoggedIn = (req, res, next) => {
   }
 };
 
-// Example protected and unprotected routes
-app.get("/", (req, res) => res.render("pages/index"));
-app.get("/failed", (req, res) => res.send("You Failed to log in!"));
-
 // In this route you can see that if the user is logged in u can acess his info in: req.user
 app.get("/good", isLoggedIn, (req, res) => {
-  res.render("pages/profile", {
+  res.render("views/admin", {
     name: req.user.displayName,
-    pic: req.user.photos[0].value,
     email: req.user.emails[0].value,
   });
 });
