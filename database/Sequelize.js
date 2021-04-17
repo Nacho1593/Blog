@@ -3,7 +3,7 @@ const ArticleModel = require("../models/Article");
 const AuthorModel = require("../models/Authors");
 const CommentModel = require("../models/Comment");
 
-const sequelize = new Sequelize("blog3", "root", "root", {
+const sequelize = new Sequelize("blog", "root", "root", {
   host: "localhost",
   dialect: "mysql",
   logging: false,
@@ -23,6 +23,10 @@ Author.hasMany(Article);
 
 Comment.belongsTo(Article);
 Article.hasMany(Comment);
+
+sequelize.sync({ force: true }).then(() => {
+  console.log("¡Las tablas fueron creadas!");
+});
 
 module.exports = {
   sequelize,

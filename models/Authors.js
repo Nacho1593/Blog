@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    roll: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
 
   return Author;

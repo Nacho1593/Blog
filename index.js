@@ -93,6 +93,15 @@ passport.use(
   )
 );
 
+app.get(
+  "/auth/google/admin",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/admin");
+  }
+);
+
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
