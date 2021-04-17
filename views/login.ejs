@@ -1,0 +1,19 @@
+<form action="/login" method="post">
+  <div>
+    <label>Email:</label>
+    <input type="text" name="username" />
+  </div>
+  <div>
+    <label>Password:</label>
+    <input type="password" name="password" />
+  </div>
+  <div>
+    <input type="submit" value="Log In" />
+  </div>
+  <div>
+    <a href="/auth/facebook" role="button">Facebook Login</a>
+  </div>
+</form>
+<% if(messages.error) { %>
+<p><%= messages.error %></p>
+<% } %>
