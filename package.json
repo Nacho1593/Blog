@@ -19,7 +19,8 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.2",
+    "virgen-acl": "0.0.22"
   },
   "devDependencies": {},
   "scripts": {
